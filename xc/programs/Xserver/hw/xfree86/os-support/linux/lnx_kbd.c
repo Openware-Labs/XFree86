@@ -107,7 +107,7 @@ KDKBDREP_ioctl_ok(int rate, int delay) {
    struct kbd_repeat kbdrep_s;
 
    /* don't change, just test */
-   kbdrep_s.rate = -1;
+   kbdrep_s.period = -1;
    kbdrep_s.delay = -1;
    if (ioctl( 0, KDKBDREP, &kbdrep_s )) {
        return 0;
@@ -115,11 +115,11 @@ KDKBDREP_ioctl_ok(int rate, int delay) {
 
    /* do the change */
    if (rate == 0)				/* switch repeat off */
-     kbdrep_s.rate = 0;
+     kbdrep_s.period = 0;
    else
-     kbdrep_s.rate  = 10000 / rate;		/* convert cps to msec */
-   if (kbdrep_s.rate < 1)
-     kbdrep_s.rate = 1;
+     kbdrep_s.period  = 10000 / rate;		/* convert cps to msec */
+   if (kbdrep_s.period < 1)
+     kbdrep_s.period = 1;
    kbdrep_s.delay = delay;
    if (kbdrep_s.delay < 1)
      kbdrep_s.delay = 1;

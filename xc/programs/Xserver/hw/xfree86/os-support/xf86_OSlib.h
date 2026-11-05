@@ -342,7 +342,7 @@ extern int vsnprintf(char *str, size_t size, const char *format, va_list ap);
 #if defined(linux)
 # include <sys/ioctl.h>
 # include <signal.h>
-# include <termio.h>
+# include <termios.h>
 # ifdef __sparc__
 #  include <sys/param.h>
 # endif

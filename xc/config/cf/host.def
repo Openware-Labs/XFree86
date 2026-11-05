@@ -1,0 +1,8 @@
+#define ProjectRoot /opt/xfree86-4.3.0
+#define BuildServersOnly YES
+#define BuildDocs NO
+#define BuildXF86DRI NO
+#define BuildXF86DRM NO
+#define BuildGlxExt NO
+#define XF86CardDrivers vesa fbdev
+#define ArCmd ar cq

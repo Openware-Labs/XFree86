@@ -14,7 +14,7 @@
 #include "fbdevhw.h"
 #include "fbpriv.h"
 
-#include "asm/page.h"	/* #define for PAGE_* */
+#define PAGE_MASK (~((unsigned long)xf86getpagesize() - 1UL))
 
 #include "globals.h"
 #define DPMS_SERVER

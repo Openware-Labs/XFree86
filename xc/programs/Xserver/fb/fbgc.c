@@ -253,17 +253,17 @@ fbValidateGC(GCPtr pGC, unsigned long changes, DrawablePtr pDrawable)
     }
     if (changes & GCStipple)
     {
-	if (pGC->stipple &&
-	    (FbEvenStip (pGC->stipple->drawable.width,
-			 pDrawable->bitsPerPixel) ||
-	     fbCanEvenStipple (pGC->stipple, pDrawable->bitsPerPixel)))
-	{
-	    pPriv->evenStipple = TRUE;
+	pPriv->evenStipple = FALSE;
+
+	if (pGC->stipple) {
+	    if (FbEvenStip (pGC->stipple->drawable.width,
+			    pDrawable->bitsPerPixel) &&
+		(fbCanEvenStipple (pGC->stipple, pDrawable->bitsPerPixel)))
+		pPriv->evenStipple = TRUE;
+
 	    if (pGC->stipple->drawable.width * pDrawable->bitsPerPixel < FB_UNIT)
 		fbPadPixmap (pGC->stipple);
 	}
-	else
-	    pPriv->evenStipple = FALSE;
     }
     /*
      * Recompute reduced rop values

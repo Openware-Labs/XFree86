@@ -78,7 +78,7 @@ SOFTWARE.
 #define COMPILEDDEFAULTFONTPATH	"/usr/lib/X11/fonts/misc/"
 #endif
 #ifndef RGB_DB
-#define RGB_DB			"/usr/lib/X11/rgb"
+#define RGB_DB			"./rgb"
 #endif
 
 /*

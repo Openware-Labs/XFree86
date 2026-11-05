@@ -1,0 +1,104 @@
+================================================================================
+  X F R E E 8 6   -   O P E N W A R E  L A B S  C O N T I N U A T I O N
+================================================================================
+
+  Release Date: 05-Nov-2026
+  Maintainer  : Openware-Labs
+  Status      : FUNCTIONAL (Xvfb only)
+
+--------------------------------------------------------------------------------
+  !!! IMPORTANT LEGAL NOTICE !!!
+--------------------------------------------------------------------------------
+  This is an UNOFFICIAL continuation of the XFree86 project.
+  "XFree86" is a registered trademark of The XFree86 Project, Inc. 
+  This project is NOT affiliated with, endorsed by, or sponsored by 
+  The XFree86 Project, Inc.
+
+  The original project has been dormant since 2011. This repository contains 
+  patches required to compile and run the XFree86 4.3.0/4.8.1 codebase on 
+  modern operating systems (tested on Arch Linux).
+
+--------------------------------------------------------------------------------
+  W H A T   I S   T H I S ?
+--------------------------------------------------------------------------------
+  This is a resurrection of the classic XFree86 codebase. 
+  
+  Do NOT expect this to run on your bare metal GPU with 3D acceleration. 
+  The primary functional target of this release is the VIRTUAL FRAMEBUFFER 
+  SERVER (Xvfb) running in 24-bit TrueColor.
+
+  Why? Because porting the entire XFree86 driver architecture to modern 
+  kernels is a nightmare. The Xvfb allows us to preserve the legacy X11 
+  rendering (and fix old bugs) without touching modern DRM/KMS subsystems.
+
+--------------------------------------------------------------------------------
+  W H A T   W O R K S ?
+--------------------------------------------------------------------------------
+  [x] Xvfb (Virtual Framebuffer) - 24-bit TrueColor rendering.
+  [x] Legacy xsetroot, xeyes, xterm.
+  [x] RGB Database generation (rgb.db, rgb.dir).
+  [x] Fixed the infamous 2003 "EvenStipple" rendering bug (fbgc.c).
+  
+  W H A T   D O E S   N O T   W O R K ?
+  [ ] XFree86 hardware drivers (VESA/FBDEV).
+  [ ] Modern XInput2 (XInputExtension is missing).
+  [ ] XRender/Composite (use flat colors, kids).
+
+--------------------------------------------------------------------------------
+  B U I L D I N G   ( O N   A R C H   L I N U X )
+--------------------------------------------------------------------------------
+  WARNING: The Imake build system is older than you. It WILL complain. 
+  Read the instructions carefully. Do not run as root.
+
+  1. Install build dependencies:
+     $ sudo pacman -S base-devel libgdbm-compat xbitmaps
+
+  2. Fix the hardcoded paths (The "Not-In-/usr" fix):
+     Edit `xc/programs/Xserver/include/site.h` around line 81.
+     Change: #define RGB_DB "/usr/lib/X11/rgb"
+     To:     #define RGB_DB "./rgb"
+
+  3. Build the core server:
+     $ cd xc
+     $ make World
+     (If you know a faster way with Imake, let us know. Otherwise, go get a coffee.)
+
+  4. Build the RGB database (The manual way):
+     $ cd programs/rgb
+     $ gcc -o rgb rgb.c -I../Xserver/include -lgdbm_compat -lgdbm
+     $ ./rgb < rgb.txt
+     (This generates rgb.dir and rgb.pag. Don't ask why it needs gdbm, it's 2003.)
+
+  5. Build the legacy xsetroot:
+     $ cd programs/xsetroot
+     $ gcc -o xsetroot xsetroot.c -I../../include -lX11 -lXmu
+
+--------------------------------------------------------------------------------
+  R U N N I N G
+--------------------------------------------------------------------------------
+  To start the server on display :10 with 24-bit TrueColor and the correct 
+  font and color paths:
+
+  $ ./xc/programs/Xserver/Xvfb :10 -screen 0 800x600x24+32 -cc 4 \
+      -co /absolute/path/to/xc/programs/rgb/rgb \
+      -fp /absolute/path/to/your/fonts/misc \
+      -ac -nolisten tcp &
+
+  Test it:
+  $ ./xc/programs/xsetroot/xsetroot -display :10 -solid '#4682b4'
+  $ xterm -display :10 &
+
+--------------------------------------------------------------------------------
+  K N O W N   I S S U E S
+--------------------------------------------------------------------------------
+  - The server will scream about "SecurityPolicy" file missing. Ignore it.
+  - The server might look for fonts in weird places. Use the -fp flag.
+  - If the screen is a weird checkerboard pattern, you forgot the -cc 4 flag 
+    or your RGB database is empty.
+
+--------------------------------------------------------------------------------
+  C R E D I T S
+--------------------------------------------------------------------------------
+  - Keith Packard and the original XFree86 team (1988-2009).
+  - The X.Org Foundation for keeping the X11 protocol alive.
+  - Everyone who ever fought with an Imakefile and won.

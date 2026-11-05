@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/KSCJOHAB/KSCJOHABtoUCS2.c

@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/GB2312/GB2312toUCS2.c

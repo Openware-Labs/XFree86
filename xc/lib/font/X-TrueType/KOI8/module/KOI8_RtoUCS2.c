@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/KOI8/KOI8_RtoUCS2.c

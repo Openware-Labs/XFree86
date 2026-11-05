@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/ISO8859.6/ISO8859_6toUCS2.c

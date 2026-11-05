@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/GEORGIAN/GEORGIANtoUCS2.c

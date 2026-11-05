@@ -1,0 +1,13 @@
+*.o
+*.a
+*.so
+*.so.*
+*.bak
+*.orig
+*.rej
+*.log
+*~
+Makefile
+Makefile.dep
+xmakefile
+exports/

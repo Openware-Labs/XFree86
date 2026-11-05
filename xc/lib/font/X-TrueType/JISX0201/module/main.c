@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/JISX0201/main.c

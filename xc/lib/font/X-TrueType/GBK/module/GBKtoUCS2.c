@@ -1,0 +1,1 @@
+../../../../../extras/X-TrueType/GBK/GBKtoUCS2.c

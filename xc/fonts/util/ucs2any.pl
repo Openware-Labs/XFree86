@@ -274,7 +274,7 @@ while ($#ARGV > 0) {
     for $target (@chars) {
 	$ucs = $map{$target};
 	if ($char{$ucs} =~ /^BBX\s+(\d+)\s+(\d+)\s+(-?\d+)\s+(-?\d+)\s*$/m) {
-	    if (defined @bbx) {
+	    if (@bbx) {
 		@bbx = combine_bbx(@bbx, $1, $2, $3, $4);
 	    } else {
 		@bbx = ($1, $2, $3, $4);

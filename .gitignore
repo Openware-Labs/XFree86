@@ -19,6 +19,8 @@ bdftopcf
 *.la
 *.dylib
 *.dll
+*.bak
+*.bak.*
 
 Makefile
 Makefile.bak

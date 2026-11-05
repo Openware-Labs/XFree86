@@ -6,3 +6,5 @@
 #define BuildGlxExt NO
 #define XF86CardDrivers vesa fbdev
 #define ArCmd ar cq
+#define ArAddCmd ar ru
+#define ArExtCmd ar x

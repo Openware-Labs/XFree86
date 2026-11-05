@@ -58,7 +58,7 @@ Sun Microsystems, Inc. or its licensors is granted.
 #ifdef _LP64
 # if defined(__sparcv9)
 #  define	_MACH64_NAME		"sparcv9"
-# elif defined(__ia64__) 
+# elif defined(__ia64__) || defined(__x86_64__) 
 #  undef MACH64_NAME
 # else
 #  error "Unknown architecture"
